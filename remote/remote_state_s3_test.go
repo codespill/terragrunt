@@ -179,7 +179,7 @@ func TestGetAwsSessionConfig(t *testing.T) {
 	}{
 		{
 			"all-values",
-			map[string]interface{}{"region": "foo", "endpoint": "bar", "profile": "baz", "role_arn": "arn::it", "shared_credentials_file": "my-file", "force_path_style": true},
+			map[string]interface{}{"region": "foo", "endpoint": "bar", "profile": "baz", "role_arn": "arn::it", "shared_credentials_file": "my-file", "force_path_style": true, "sts_endpoint": "foobar", "iam_endpoint": "foobaz"},
 		},
 		{
 			"no-values",
@@ -205,6 +205,8 @@ func TestGetAwsSessionConfig(t *testing.T) {
 			expected := &aws_helper.AwsSessionConfig{
 				Region:                  s3ConfigExtended.remoteStateConfigS3.Region,
 				CustomS3Endpoint:        s3ConfigExtended.remoteStateConfigS3.Endpoint,
+				CustomSTSEndpoint:       s3ConfigExtended.remoteStateConfigS3.STSEndpoint,
+				CustomIAMEndpoint:       s3ConfigExtended.remoteStateConfigS3.IAMEndpoint,
 				CustomDynamoDBEndpoint:  s3ConfigExtended.remoteStateConfigS3.DynamoDBEndpoint,
 				Profile:                 s3ConfigExtended.remoteStateConfigS3.Profile,
 				RoleArn:                 s3ConfigExtended.remoteStateConfigS3.RoleArn,

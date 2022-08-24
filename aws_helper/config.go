@@ -20,6 +20,8 @@ type AwsSessionConfig struct {
 	Region                  string
 	CustomS3Endpoint        string
 	CustomDynamoDBEndpoint  string
+	CustomSTSEndpoint       string
+	CustomIAMEndpoint       string
 	Profile                 string
 	RoleArn                 string
 	CredsFilename           string
@@ -42,6 +44,16 @@ func CreateAwsSessionFromConfig(config *AwsSessionConfig, terragruntOptions *opt
 		} else if service == "dynamodb" && config.CustomDynamoDBEndpoint != "" {
 			return endpoints.ResolvedEndpoint{
 				URL:           config.CustomDynamoDBEndpoint,
+				SigningRegion: config.Region,
+			}, nil
+		} else if service == "sts" && config.CustomSTSEndpoint != "" {
+			return endpoints.ResolvedEndpoint{
+				URL:           config.CustomSTSEndpoint,
+				SigningRegion: config.Region,
+			}, nil
+		} else if service == "iam" && config.CustomIAMEndpoint != "" {
+			return endpoints.ResolvedEndpoint{
+				URL:           config.CustomIAMEndpoint,
 				SigningRegion: config.Region,
 			}, nil
 		}
